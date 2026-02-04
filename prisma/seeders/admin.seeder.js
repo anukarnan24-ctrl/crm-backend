@@ -3,14 +3,14 @@ import pkg from "@prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import "dotenv/config";
 
+const { PrismaClient } = pkg;
+
+const globalForPrisma = globalThis;
+const connectionString = `${process.env.DATABASE_URL}`;
+const adapter = new PrismaPg({ connectionString });
+
+const prisma = globalForPrisma.prisma ?? new PrismaClient({ adapter });
 async function main() {
-  const { PrismaClient } = pkg;
-
-  const globalForPrisma = globalThis;
-  const connectionString = `${process.env.DATABASE_URL}`;
-  const adapter = new PrismaPg({ connectionString });
-
-  const prisma = globalForPrisma.prisma ?? new PrismaClient({ adapter });
   const email = "admin@crm.local";
   const password = "admin123"; // change after first login
 
