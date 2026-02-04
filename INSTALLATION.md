@@ -42,6 +42,7 @@ PORT=4000
 
 ```bash
 npx prisma migrate deploy
+npx prisma generate
 ```
 
 ## 5. Create Admin user(Seeder)
