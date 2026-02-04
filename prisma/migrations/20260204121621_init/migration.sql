@@ -6,7 +6,7 @@ CREATE TYPE "LeadStatus" AS ENUM ('NEW', 'CONTACTED', 'QUALIFIED', 'WON', 'LOST'
 
 -- CreateTable
 CREATE TABLE "User" (
-    "id" TEXT NOT NULL,
+    "id" SERIAL NOT NULL,
     "name" TEXT,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
@@ -19,8 +19,8 @@ CREATE TABLE "User" (
 
 -- CreateTable
 CREATE TABLE "Lead" (
-    "id" TEXT NOT NULL,
-    "ownerId" TEXT NOT NULL,
+    "id" SERIAL NOT NULL,
+    "ownerId" INTEGER NOT NULL,
     "name" TEXT NOT NULL,
     "email" TEXT,
     "phone" TEXT,
@@ -28,7 +28,7 @@ CREATE TABLE "Lead" (
     "source" TEXT,
     "status" "LeadStatus" NOT NULL DEFAULT 'NEW',
     "convertedAt" TIMESTAMP(3),
-    "convertedToContactId" TEXT,
+    "convertedToContactId" INTEGER,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -37,13 +37,13 @@ CREATE TABLE "Lead" (
 
 -- CreateTable
 CREATE TABLE "Contact" (
-    "id" TEXT NOT NULL,
-    "ownerId" TEXT NOT NULL,
+    "id" SERIAL NOT NULL,
+    "ownerId" INTEGER NOT NULL,
     "name" TEXT NOT NULL,
     "email" TEXT,
     "phone" TEXT,
     "company" TEXT,
-    "leadId" TEXT,
+    "leadId" INTEGER,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -52,8 +52,8 @@ CREATE TABLE "Contact" (
 
 -- CreateTable
 CREATE TABLE "Note" (
-    "id" TEXT NOT NULL,
-    "contactId" TEXT NOT NULL,
+    "id" SERIAL NOT NULL,
+    "contactId" INTEGER NOT NULL,
     "body" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -63,9 +63,9 @@ CREATE TABLE "Note" (
 
 -- CreateTable
 CREATE TABLE "Task" (
-    "id" TEXT NOT NULL,
-    "ownerId" TEXT NOT NULL,
-    "contactId" TEXT NOT NULL,
+    "id" SERIAL NOT NULL,
+    "ownerId" INTEGER NOT NULL,
+    "contactId" INTEGER NOT NULL,
     "title" TEXT NOT NULL,
     "dueDate" TIMESTAMP(3),
     "completedAt" TIMESTAMP(3),
